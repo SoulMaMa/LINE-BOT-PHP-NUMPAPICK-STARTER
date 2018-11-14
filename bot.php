@@ -8,15 +8,15 @@ $content = file_get_contents('php://input');
 
 $events = json_decode($content, true);
 // Validate parsed JSON data
-if (!is_null($events['ESP LED ON'])) {
+if (!is_null($events['ESP'])) {
 	
-	send_LINE($events['ESP LED ON']);
+	send_LINE($events['ESP']);
 		
 	echo "LED IS ON";
 	}
-else if (!is_null($events['ESP LED OFF'])) {
+else if (!is_null($events['ESP'])) {
 	
-	send_LINE($events['ESP LED OFF']);
+	send_LINE($events['ESP']);
 		
 	echo "LED IS OFF";
 	}
