@@ -8,11 +8,17 @@ $content = file_get_contents('php://input');
 
 $events = json_decode($content, true);
 // Validate parsed JSON data
-if (!is_null($events['ESP'])) {
+if (!is_null($events['1'])) {
 	
-	send_LINE($events['ESP']);
+	send_LINE($events['1']);
 		
-	echo "OK";
+	echo "LED IS ON";
+	}
+else if (!is_null($events['0'])) {
+	
+	send_LINE($events['0']);
+		
+	echo "LED IS OFF";
 	}
 if (!is_null($events['events'])) {
 	echo "line bot";
