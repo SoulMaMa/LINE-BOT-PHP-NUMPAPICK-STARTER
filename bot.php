@@ -7,75 +7,15 @@ $content = file_get_contents('php://input');
 // Parse JSON
 
 $events = json_decode($content, true);
-
-
 // Validate parsed JSON data
-
-if(!is_null($events)){
-    // ถ้ามีค่า สร้างตัวแปรเก็บ replyToken ไว้ใช้งาน
-     $replyToken = $events['events'][0]['replyToken'];
-    $typeMessage = $events['events'][0]['message']['type'];
-    $userMessage = $events['events'][0]['message']['text'];
-    switch ($typeMessage){
-        case 'text':
-            switch ($userMessage) {
-                case '1':
-                    $textReplyMessage = "LED ON";
-                    break;
-                case '0':
-                    $textReplyMessage = "LED OFF";
-                    break;
-                default:
-                    $textReplyMessage = " LED DONT WORKING";
-                    break;                                      
-            }
-            break;
-        default:
-            $textReplyMessage = json_encode($events);
-            break;  
-    }
-}
-// ส่วนของคำสั่งจัดเตียมรูปแบบข้อความสำหรับส่ง
-$textMessageBuilder = new TextMessageBuilder(json_encode($events));
- 
-//l ส่วนของคำสั่งตอบกลับข้อความ
-$response = $bot->replyMessage($replyToken,$textMessageBuilder);
-if ($response->isSucceeded()) {
-    echo 'Succeeded!';
-    return;
-}
- 
-// Failed
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if (!is_null($events['ESP'])) {
+	
+	send_LINE($events['ESP']);
+		
+	echo "OK";
+	}
 if (!is_null($events['events'])) {
-	//echo "line bot";
+	echo "line bot";
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -84,7 +24,26 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-
+switch ($typeMessage)
+{ 
+	case 'text': 
+		switch ($userMessage) 
+		{ 
+			case '1': $textReplyMessage = "LED ON"; 
+				break; 
+			case '0': 
+				$textReplyMessage = "LED OFF"; 
+				break;
+		}
+		break;
+        default:
+            $textReplyMessage = json_encode($events);
+            $replyData = new TextMessageBuilder($textReplyMessage);         
+            break;
+}	
+			
+					
+			
 			// Build message to reply back
 
 			$Topic = "NodeMCU1" ;
@@ -94,5 +53,8 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-
+$Topic = "NodeMCU1" ;
+$text = "Test";
+getMqttfromlineMsg($Topic,$text);
+echo "OK3";
 ?>
