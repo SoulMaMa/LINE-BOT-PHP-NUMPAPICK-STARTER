@@ -24,26 +24,7 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-switch ($typeMessage)
-{ 
-	case 'text': 
-		switch ($userMessage) 
-		{ 
-			case '1': $textReplyMessage = "LED ON"; 
-				break; 
-			case '0': 
-				$textReplyMessage = "LED OFF"; 
-				break;
-		}
-		break;
-        default:
-            $textReplyMessage = json_encode($events);
-            $replyData = new TextMessageBuilder($textReplyMessage);         
-            break;
-}	
-			
-					
-			
+
 			// Build message to reply back
 
 			$Topic = "NodeMCU1" ;
