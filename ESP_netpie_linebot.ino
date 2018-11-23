@@ -3,8 +3,8 @@
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid     = "Home_Wifi"; //change this to your SSID
-const char* password = "kanokwan6"; //change this to your PASSWORD
+const char* ssid     = "iPhone art"; //change this to your SSID
+const char* password = "art007999"; //change this to your PASSWORD
 
 const char* host = "https://testledwithline.herokuapp.com/bot.php";//change this to your linebot server ex.http://numpapick-linebot.herokuapp.com/bot.php
 #define APPID   "art"     //change this to your APPID
